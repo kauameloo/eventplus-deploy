@@ -4,14 +4,17 @@ import "./TableEv.css";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
 import { dateFormateDbToView } from "../../../Utils/stringFunctions";
+import { FaEye } from "react-icons/fa";
 
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { useNavigate } from "react-router-dom";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
 const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
+  const navigate = useNavigate();
   // console.log(dados);
   return (
     <table className="table-data">
@@ -28,6 +31,9 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
           </th>
           <th className="table-data__head-title table-data__head-title--big">
             Data
+          </th>
+          <th className="table-data__head-title table-data__head-title--little">
+            Detalhes
           </th>
           <th className="table-data__head-title table-data__head-title--little">
             Editar
@@ -61,6 +67,21 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
               </td>
               <td className="table-data__data table-data__data--big">
                 {dateFormateDbToView(tp.dataEvento)}
+              </td>
+
+              <td className="table-data__data table-data__data--little">
+                <FaEye
+                  className="table-data__icon"
+                  idevento={tp.idEvento}
+                  src=""
+                  alt=""
+                  onClick={(e) =>
+                    // dá pra passar o obhjeto tp direto?
+
+                    navigate("/detalhes-evento")
+
+                  }
+                />
               </td>
 
               <td className="table-data__data table-data__data--little">
