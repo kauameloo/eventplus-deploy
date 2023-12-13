@@ -1,5 +1,5 @@
 import React from "react";
-import "./TableEv.css";
+import "./TableDe.css";
 // import editPen from "../../../assets/images/edit-pen.svg";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
@@ -21,19 +21,10 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
       <thead className="table-data__head">
         <tr className="table-data__head-row">
           <th className="table-data__head-title table-data__head-title--big">
-            Evento
+            Nome
           </th>
           <th className="table-data__head-title table-data__head-title--big">
             Descrição
-          </th>
-          <th className="table-data__head-title table-data__head-title--big">
-            Tipo Evento
-          </th>
-          <th className="table-data__head-title table-data__head-title--big">
-            Data
-          </th>
-          <th className="table-data__head-title table-data__head-title--little">
-            Detalhes
           </th>
           <th className="table-data__head-title table-data__head-title--little">
             Editar
@@ -46,9 +37,9 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
       <tbody>
         {dados.map((tp) => {
           return (
-            <tr className="table-data__head-row" key={tp.idEvento}>
+            <tr className="table-data__head-row" key={tp.idComentarioEvento}>
               <td className="table-data__data table-data__data--big">
-                {tp.nomeEvento}
+                {tp.usuario.nome}
               </td>
               <td
                 className="table-data__data table-data__data--big table-data__data--handover"
@@ -62,14 +53,8 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
                   className="custom-tootip"
                 />
               </td>
-              <td className="table-data__data table-data__data--big">
-                {tp.tiposEvento.titulo}
-              </td>
-              <td className="table-data__data table-data__data--big">
-                {dateFormateDbToView(tp.dataEvento)}
-              </td>
 
-              <td className="table-data__data table-data__data--little">
+              {/* <td className="table-data__data table-data__data--little">
                 <FaEye
                   className="table-data__icon"
                   idevento={tp.idEvento}
@@ -82,7 +67,7 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
 
                   }
                 />
-              </td>
+              </td> */}
 
               <td className="table-data__data table-data__data--little">
                 <img
