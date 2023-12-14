@@ -24,7 +24,7 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
             Nome
           </th>
           <th className="table-data__head-title table-data__head-title--big">
-            Descrição
+            Comentário
           </th>
           <th className="table-data__head-title table-data__head-title--little">
             Editar
@@ -79,11 +79,8 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
                     // dá pra passar o obhjeto tp direto?
                     fnUpdate({//showUpdateForma(??)
                       idEvento: tp.idEvento,
-                      nomeEvento: tp.nomeEvento,
-                      dataEvento: tp.dataEvento,
                       descricao: tp.descricao,
-                      idInstituicao: tp.idInstituicao, //por enquanto chumbado
-                      idTipoEvento: tp.idTipoEvento
+                      idUsuario: tp.idUsuario,
                     })
                   }
                 />
@@ -93,9 +90,10 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
                 <img
                   className="table-data__icon"
                   idevento={tp.idEvento}
+                  idcomentarioevento={tp.idComentarioEvento}
                   src={trashDelete}
                   alt=""
-                  onClick={(e) => fnDelete(e.target.getAttribute("idevento"))}
+                  onClick={(e) => fnDelete(e.target.getAttribute("idcomentarioevento"))}
                 />
               </td>
             </tr>

@@ -23,6 +23,7 @@ export const presencesEventResource = '/PresencasEvento';
  */
 export const commentaryEventResource = '/ComentariosEvento';
 
+export const commentaryExibEventResource = '/ComentariosEvento/ListarSomenteExibe';
 /**
  * Rota para o recurso Próximos Eventos
  */

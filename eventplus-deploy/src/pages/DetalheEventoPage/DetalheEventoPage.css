@@ -1,0 +1,32 @@
+.detalhes-evento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+
+    /* border: 1px solid red; */
+}
+
+.card-detalhe {
+    margin-top: 25px;
+    border: 1px solid var(--color-blue-red);
+    border-radius: 5px;
+    padding: 30px;
+    width: 500px;
+}
+
+.card-detalhe--title {
+    margin-bottom: 10px;
+}
+
+.section-detalhes {
+    padding: 50px 0;
+}
+
+.align {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -5,11 +5,13 @@ import ToggleSwitch from "../../../components/Toggle/Toggle";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 // import { Tooltip } from "react-tooltip";
-
+import { FaEye } from "react-icons/fa";
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 import "./TableEvA.css";
+import { useNavigate } from "react-router-dom";
 
 const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
+  const navigate = useNavigate();
   return (
     <table className="tbal-data">
       <thead className="tbal-data__head">
@@ -39,6 +41,18 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
               </td>
 
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
+              <FaEye
+                  className="table-data__icon"
+                  idevento={e.idEvento}
+                  src=""
+                  alt=""
+                  onClick={() =>
+                    // dá pra passar o obhjeto tp direto?
+
+                    navigate(`/detalhes-evento/${e.idEvento}`)
+
+                  }
+                />
                 {/* imagem do comentário - abre o modal */}
                 {new Date(e.dataEvento) < Date.now() ? (
                   <img
