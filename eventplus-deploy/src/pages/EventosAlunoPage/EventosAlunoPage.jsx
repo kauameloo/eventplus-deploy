@@ -15,10 +15,11 @@ import api, {
 
 import "./EventosAlunoPage.css";
 import { UserContext } from "../../context/AuthContext";
+import Notification from "../../components/Notification/Notification";
 
 const EventosAlunoPage = () => {
   // state do menu mobile
-
+  const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
   const [eventos, setEventos] = useState([]);
   // select mocado
   // const [quaisEventos, setQuaisEventos] = useState([
@@ -36,6 +37,7 @@ const EventosAlunoPage = () => {
   const [comentario, setComentario] = useState("");
   const [idEvento, setIdEvento] = useState("");
   const [idComentario, setIdComentario] = useState(null);
+  const [obj, setObj] = useState([]);
 
   useEffect(() => {
     loadEventsType();
@@ -132,15 +134,22 @@ const EventosAlunoPage = () => {
   }
 
   const showHideModal = (idEvent) => {
+
     // console.clear();
     // console.log("id do evento atual");
     // console.log(idEvent);
 
     setShowModal(showModal ? false : true);
-    // setUserData({ ...userData, idEvento: idEvent });
     setIdEvento(idEvent);
+    // setUserData({ ...userData, idEvento: idEvent });
     // console.log("após guardar no state do usuário");
     // console.log(idEvent);
+    // chama a função loadMyCommentary antes de abrir o modal
+    loadMyCommentary(userData.userId, idEvent);
+
+    // imprime o estado comentario
+    console.log(comentario);
+
   };
 
   // ler um comentário - get
@@ -150,19 +159,16 @@ const EventosAlunoPage = () => {
     try {
       // api está retornando sempre todos os comentários do usuário
       const promise = await api.get(
-        `${commentaryEventResource}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+        `${commentaryEventResource}/BuscarPorIdUsuario?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
-      const myComm = await promise.data.filter(
-        (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
-      );
+      setObj(promise.data)
 
       // console.log("QUANTIDADE DE DADOS NO ARRAY FILTER");
-      // console.log(myComm.length);
-      // console.log(myComm);
+      // console.log(setObj.length);
 
-      setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      setComentario(setObj.length > 0 ? obj.descricao : "");
+      setIdComentario(setObj.length > 0 ? obj.idComentarioEvento : null);
     } catch (error) {
       console.log("Erro ao carregar o evento");
       console.log(error);
@@ -179,8 +185,15 @@ const EventosAlunoPage = () => {
         idEvento: idEvento,
       });
 
-      if (promise.status === 200) {
-        alert("Comentário cadastrado com sucesso");
+      if (promise.status === 201) {
+        setNotifyUser({
+          titleNote: "Sucesso!",
+          textNote: "Comentário cadastrado com sucesso!",
+          imgIcon: "success",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        })
       }
     } catch (error) {
       console.log("Erro ao cadastrar o evento");
@@ -196,8 +209,15 @@ const EventosAlunoPage = () => {
       const promise = await api.delete(
         `${commentaryEventResource}/${idComentario}`
       );
-      if (promise.status === 200) {
-        alert("Evento excluído com sucesso!");
+      if (promise.status === 204) {
+        setNotifyUser({
+          titleNote: "Sucesso!",
+          textNote: "Comentário excluído com sucesso!",
+          imgIcon: "success",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        })
       }
     } catch (error) {
       console.log("Erro ao excluir ");
@@ -219,7 +239,7 @@ const EventosAlunoPage = () => {
           loadEventsType();
           alert("Presença confirmada, parabéns");
         }
-      } catch (error) {}
+      } catch (error) { }
       return;
     }
 
@@ -262,7 +282,8 @@ const EventosAlunoPage = () => {
       </MainContent>
       {/* SPINNER -Feito com position */}
       {showSpinner ? <Spinner /> : null}
-
+      {/* CARD NOTIFICATION */}
+      {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
       {showModal ? (
         <Modal
           // userId={userData.userId}
